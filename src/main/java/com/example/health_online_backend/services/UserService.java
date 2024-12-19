@@ -32,12 +32,14 @@ public class UserService {
             return new AuthResponse(false, "Email đã tồn tại tồn tại");
         }
         String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setStatus(0);
         user.setPassword(hashedPassword);
         return new AuthResponse(true, "Đăng kí thành công", userRepository.save(user));
     }
 
     public AuthResponse login(String email, String password) {
         User user = userRepository.findUserByEmail(email);
+
 
         if (user == null) {
             return new AuthResponse(false, "Username không tồn tại");
@@ -46,7 +48,9 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             return new AuthResponse(false, "Password không đúng");
         }
-
+        if(user.getStatus()==1) {
+            return new AuthResponse(false, "Tài khoản hiện tại đã bị khóa", user);
+        }
         // Login thành công
         return new AuthResponse(true, "Login thành công", user);
     }
@@ -76,6 +80,14 @@ public class UserService {
         return false;
     }
 
+    public void updateProfileAdmin(User user,User userNew) {
+        String hashedPassword = passwordEncoder.encode(userNew.getPassword());
+        user.setPassword(hashedPassword);
+        user.setFullName(userNew.getFullName());
+        user.setPhoneNumber(userNew.getPhoneNumber());
+        userRepository.save(user);
+    }
+
     public User getPatientById(String id) {
         return userRepository.findUserById(id);
     }
@@ -90,5 +102,29 @@ public class UserService {
         // Mật khẩu yêu cầu ít nhất 5 ký tự và ít nhất 1 ký tự chữ cái
         String passwordRegex = "^(?=.*[A-Za-z])[a-zA-Z0-9.-]{5,}$";
         return password.matches(passwordRegex);
+    }
+
+    public List<User> getAllUsers(String email) {
+
+        return userRepository.findAllByEmailContainingIgnoreCase(email);
+    }
+    public boolean deleteUser(User user) {
+        try{
+            user.setStatus(1);
+            userRepository.save(user);
+            return true;
+        }
+        catch(Exception e){}
+        return false;
+    }
+
+    public boolean reverse(User user) {
+        try{
+            user.setStatus(0);
+            userRepository.save(user);
+            return true;
+        }
+        catch(Exception e){}
+        return false;
     }
 }

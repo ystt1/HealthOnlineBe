@@ -12,7 +12,24 @@ public class User {
     private String password;
     private String fullName;
     private String phoneNumber;
+    private int status;
 
+    public User(String id, String email, String password, String fullName, String phoneNumber, int status) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;

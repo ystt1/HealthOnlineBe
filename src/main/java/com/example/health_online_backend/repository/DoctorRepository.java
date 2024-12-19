@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface DoctorRepository extends MongoRepository<Doctor, String> {
     List<Doctor> findDoctorsByNameContainingIgnoreCase(String name);
+    Doctor findDoctorByEmailAndAndPassword(String email, String password);
+    Doctor findDoctorByEmail(String email);
 }

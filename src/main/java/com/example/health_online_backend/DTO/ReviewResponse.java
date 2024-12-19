@@ -2,7 +2,7 @@ package com.example.health_online_backend.DTO;
 
 import java.time.LocalDate;
 
-public class ReviewResponse {
+public class    ReviewResponse {
     private String comment;
     private String userName;
     private int star;

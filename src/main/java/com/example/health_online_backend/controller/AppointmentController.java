@@ -44,6 +44,16 @@ public class AppointmentController {
         }
     }
 
+    @GetMapping("get-appointment-today-of-doctor")
+    public ResponseEntity<List<Appointment>> getAppointmentTodayOfDoctor(@RequestParam String doctorId,@RequestParam int type) {
+        try {
+            List<Appointment> appointments = appointmentService.getListAppointmentTodayOfDoctor(doctorId,type);
+            return new ResponseEntity<>(appointments, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("addAppointment")
     public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment) {
         try {

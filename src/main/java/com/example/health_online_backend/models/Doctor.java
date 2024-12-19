@@ -14,8 +14,27 @@ public class Doctor {
     private String description;
     private String specialized;
 
+    private int status;
 
     public Doctor() {
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Doctor(String id, String name, String email, String password, String description, String specialized, int status) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.description = description;
+        this.specialized = specialized;
+        this.status = status;
     }
 
     public Doctor(String id, String name, String email, String password, String description, String specialized) {

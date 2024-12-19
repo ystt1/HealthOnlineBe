@@ -7,13 +7,36 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Medicine {
     @Id
     private String id;
+
     private String name;
     private String unit;
     private String description;
     private int quantity;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
+
+    public Medicine(String id, String name, String unit, String description, int quantity, int status) {
+        this.id = id;
+        this.name = name;
+        this.unit = unit;
+        this.description = description;
+        this.quantity = quantity;
+        this.status = status;
+    }
 
     public Medicine() {
     }
+
+
 
     public Medicine(String id, String name, String unit, String description, int quantity) {
         this.id = id;
@@ -21,6 +44,14 @@ public class Medicine {
         this.unit = unit;
         this.description = description;
         this.quantity = quantity;
+    }
+
+    public Medicine(String id, String name, String unit, int quantity, int status) {
+        this.id = id;
+        this.name = name;
+        this.unit = unit;
+        this.quantity = quantity;
+        this.status = status;
     }
 
     public Medicine(String name, String unit, String description, int quantity) {

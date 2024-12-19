@@ -15,7 +15,8 @@ public interface AppointmentRepository extends MongoRepository<Appointment, Stri
     Appointment findAppointmentByDoctorIdAndDayBookingAndHourBooking(String doctorId, LocalDate dayBooking, int hourBooking);
 
     List<Appointment> findAppointmentsByDoctorIdAndDayBooking(String doctorId, LocalDate dayBooking);
-
+    List<Appointment> findAppointmentsByDoctorIdAndDayBookingGreaterThan(String doctorId, LocalDate dayBooking);
+    List<Appointment> findAppointmentsByDoctorIdAndDayBookingLessThan(String doctorId, LocalDate dayBooking);
     List<Appointment> findAppointmentsByUserId(String userId);
 
     List<Appointment> findAppointmentsByDoctorId(String doctorId);

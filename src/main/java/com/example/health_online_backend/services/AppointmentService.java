@@ -34,6 +34,18 @@ public class AppointmentService {
         return timeSlots;
     }
 
+    public List<Appointment> getListAppointmentTodayOfDoctor(String doctorId,int type) {
+        LocalDate today = LocalDate.now();
+        if(type==0) {
+            return appointmentRepository.findAppointmentsByDoctorIdAndDayBooking(doctorId, today);
+        }
+        if(type==1) {
+             return appointmentRepository.findAppointmentsByDoctorIdAndDayBookingGreaterThan(doctorId, today);
+        }
+        return appointmentRepository.findAppointmentsByDoctorIdAndDayBookingLessThan(doctorId, today);
+
+    }
+
 
     public List<Integer> getSlotsXDayLater(String doctorId, int i) {
         LocalDate today = LocalDate.now();
@@ -57,8 +69,7 @@ public class AppointmentService {
     public Appointment getAppointment(String id) {
         try {
             return appointmentRepository.findById(id).get();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
